@@ -1,2 +1,1 @@
-## Main class
-`App`
+Main class: `App`
