@@ -48,7 +48,7 @@ public class App {
         JsonObject jsonBody = JsonParser.parseString(data).getAsJsonObject();
         String filePath = null;
         JsonElement needSaveData = null;
-        String parentDir = "/www/wwwroot/bing.oops.cyou";
+        String parentDir = ".";
         switch (day) {
             case TODAY ->{
                 needSaveData = jsonBody
