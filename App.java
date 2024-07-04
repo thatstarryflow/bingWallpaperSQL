@@ -47,8 +47,7 @@ public class App {
             .get("images").getAsJsonArray();
         JsonObject todayImageData = jsonBody_data_image.get(0).getAsJsonObject();
         String date = todayImageData.get("isoDate").getAsString();
-        String filePath = "/www/wwwroot/bing.oops.cyou/images/" + date + ".json";
-        // String filePath = "./images/" + date + ".json";
+        String filePath = "./images/" + date + ".json";
         try {
             createFile(filePath);
             writeFile(filePath,todayImageData.toString());
