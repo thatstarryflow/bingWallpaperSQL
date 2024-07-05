@@ -18,8 +18,8 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
-      - name: Run App.jar
-        run: java -jar App.jar
+      - name: Run Java
+        run: java -classpath lib/*.jar App.java
 
       - name: Configure Git
         run: |
