@@ -48,18 +48,18 @@ public class App {
         JsonObject jsonBody = JsonParser.parseString(data).getAsJsonObject();
         String filePath = null;
         JsonElement needSaveData = null;
-        String parentDir = ".";
+        String parentDir = "./";
         switch (day) {
             case TODAY ->{
                 needSaveData = jsonBody
                     .get("MediaContents").getAsJsonArray().get(0);
-                filePath = parentDir + "/images/today/" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + ".json";
+                filePath = parentDir + "images/today/" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + ".json";
             }
             case YESTERDAY ->{
                 needSaveData = jsonBody
                     .get("data").getAsJsonObject()
                     .get("images").getAsJsonArray().get(0);
-                filePath = parentDir + "/images/" + needSaveData.getAsJsonObject().get("isoDate").getAsString() + ".json";
+                filePath = parentDir + "images/" + needSaveData.getAsJsonObject().get("isoDate").getAsString() + ".json";
             }
             default -> { throw new RuntimeException("There is no corresponding \"day\" type"); }
         }
