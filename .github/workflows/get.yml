@@ -31,8 +31,8 @@ jobs:
          git pull
          git add images/*
          git commit -m "update"
-    # - name: Push changes
-    #   uses:  ad-m/github-push-action@master
-    #   with:
-    #      github_token: ${{ secrets.MY_GIT_TOKEN }}
-    #      branch: main
+    - name: Push changes
+      uses:  ad-m/github-push-action@master
+      with:
+         github_token: ${{ secrets.MY_GIT_TOKEN }}
+         branch: main
