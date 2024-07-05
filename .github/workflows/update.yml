@@ -1,9 +1,8 @@
-name: Run App and Push Output
+name: Run App and Push Output Daily
 
 on:
-  push:
-    branches:
-      - main  # 你可以根据需要更改触发分支
+  schedule:
+    - cron: '10 17 * * *'  # 每天北京时间 1:10 对应的 UTC 时间是 17:10
 
 jobs:
   run-and-push:
@@ -32,5 +31,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git add images/
-          git commit -m "Add generated output"
+          git commit -m "Update"
           git push origin main
