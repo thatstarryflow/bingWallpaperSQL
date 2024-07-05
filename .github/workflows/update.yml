@@ -28,9 +28,9 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
       - name: Commit and push changes
-        run: |
-          git add images/
-          git commit -m "Update"
-          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add images/
+          git commit -m "Add generated output"
+          git push origin main
