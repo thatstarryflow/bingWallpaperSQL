@@ -3,13 +3,12 @@ import com.google.gson.JsonParser;
 
 public class Apis {
 
-    public static final String[] APIs = { 
+    private static final String[] APIs = { 
         "https://global.bing.com/HPImageArchive.aspx?format=js&idx=0&n=9&pid=hp&FORM=BEHPTB&uhd=1&uhdwidth=3840&uhdheight=2160&setmkt=zh-CN&setlang=en" , 
         "https://www.bing.com/hp/api/model?mkt=zh-CN" 
     };
-    public static final byte API1 = 0 , API2 = 1;
-    public static JsonObject needData = new JsonObject();
-
+    private static final byte API1 = 0 , API2 = 1;
+    private static JsonObject needData = new JsonObject();
 
     public static void ParseAPIData(String APIData,byte api){
         if (APIData == null) throw new RuntimeException("response is null");
@@ -35,7 +34,14 @@ public class Apis {
                 Apis.needData.add("quickfact",ImageContent.get("QuickFact").getAsJsonObject().get("MainText"));
                 Apis.needData.add("datestr", ImageData.get("FullDateString"));
             }
-            default ->{ throw new RuntimeException("Not find this apiCode"); }
+            default ->{ throw new RuntimeException("Not find apiCode " + api); }
         }
+    }
+
+    public static JsonObject mergeData(){
+        for (byte i = 0 ; i < Apis.APIs.length; i++) {
+            Apis.ParseAPIData(Tools.getHttpData(Apis.APIs[i]), i);
+        }
+        return Apis.needData;
     }
 }
