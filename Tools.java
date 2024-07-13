@@ -1,8 +1,3 @@
-/**
- * 
- * @author github@thatstarryflow
- * @date 2024/07/03 20:14
- */
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URI;
