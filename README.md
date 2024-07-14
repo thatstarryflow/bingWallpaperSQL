@@ -1,6 +1,6 @@
 # DailyBingWallpaper
 
-Fetches the json of daily Bing wallpaper. 
+Save the json of daily Bing wallpaper. 
 
 
 ## Prerequisites
