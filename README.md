@@ -1,11 +1,11 @@
 # DailyBingWallpaper
 
-Save the json of daily Bing wallpaper. 
+获取并整理保存每天必应壁纸的Json数据
 
 
-## Prerequisites
-- Java 17 or higher
-- Internet connection
+## 环境要求
+- Java 17 及以上
+- 互联网连接
 
 
 ## License
