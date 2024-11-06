@@ -23,9 +23,9 @@ public class Tools {
     public static void insert(String date , String json) throws Exception{
         out.println(json);
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bing","root","wei5877261");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/database","user","password");
 
-        PreparedStatement ment = con.prepareStatement("SELECT EXISTS (SELECT date FROM picdata WHERE date = ?) AS dateExists;");
+        PreparedStatement ment = con.prepareStatement("SELECT EXISTS (SELECT date FROM dataMap WHERE date = ?) AS dateExists;");
         ment.setString(1,date);
         ResultSet ret = ment .executeQuery();
 
