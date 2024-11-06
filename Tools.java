@@ -1,49 +1,44 @@
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import com.google.gson.JsonElement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Tools {
-
-    public static String getHttpData(String httpURL){
+    private static final PrintStream out = System.out;
+    public static String getHttpData(String httpURL) throws Exception{
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(httpURL)).build();
-        HttpResponse<String> response;
-        try {
-            response = client
+        HttpResponse<String> response = client
                 .send(request,HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) { throw new RuntimeException(e); }
+
         return response != null ? response.body() : null;
     }
 
-    public static void saveToFile(JsonElement jEle,String filePath){
-        try {
-            createFile(filePath);
-            writeFile(filePath,jEle.toString());
-        } catch (Exception e) { throw new RuntimeException(e); }
+    public static void insert(String date , String json) throws Exception{
+        out.println(json);
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bing","root","wei5877261");
+
+        PreparedStatement ment = con.prepareStatement("SELECT EXISTS (SELECT date FROM picdata WHERE date = ?) AS dateExists;");
+        ment.setString(1,date);
+        ResultSet ret = ment .executeQuery();
+
+        if (ret.next() && ret.getInt("dateExists") >= 1) out.println("date exit , update err\n");
+        else {
+            PreparedStatement pment = con.prepareStatement("INSERT INTO picdata (date , json ) VALUES (? , ?)");
+            pment.setString(1, date);
+            pment.setString(2, json);
+            out.println(pment.executeUpdate() != 1 ? "update err\n" : "update ok\n");
+        }
     }
 
-    public static void writeFile(String filePath,String content){
-        FileOutputStream fos ;
-        try {
-            fos = new FileOutputStream(filePath, true);
-            fos.write(content.getBytes());
-            fos.flush();
-            fos.close();
-        } catch (Exception e) { throw new RuntimeException(e); }
-    }
 
-    public static void createFile(String newFilePath){
-        File file = new File(newFilePath);
-        File parentDir = file.getParentFile();
-        try {
-            if (!parentDir.exists()) if(!parentDir.mkdirs()) throw new RuntimeException("Make new directory failed");
-            if(!file.exists()) file.createNewFile(); else throw new RuntimeException("File is exist");
-         }catch (Exception e){ throw new RuntimeException(e); }
-    } 
 
 }
+

@@ -1,13 +1,9 @@
-import com.google.gson.JsonObject;
-
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
        Main.run();
     }
 
-    public static void run(){
-        JsonObject data = Apis.mergeData();
-        String path = "images/" + data.get("date").getAsString()+".json";
-        Tools.saveToFile(data, path);
+    public static void run() throws Exception{
+        Apis.mergeData();
     }
 }

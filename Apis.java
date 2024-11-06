@@ -10,7 +10,7 @@ public class Apis {
     private static final byte API1 = 0 , API2 = 1;
     private static JsonObject needData = new JsonObject();
 
-    public static void ParseAPIData(String APIData,byte api){
+    public static void ParseAPIData(String APIData,byte api) {
         if (APIData == null) throw new RuntimeException("response is null");
         JsonObject jsonBody = JsonParser.parseString(APIData).getAsJsonObject();
         JsonObject ImageData;
@@ -38,10 +38,10 @@ public class Apis {
         }
     }
 
-    public static JsonObject mergeData(){
+    public static void mergeData() throws Exception{
         for (byte i = 0 ; i < Apis.APIs.length; i++) {
             Apis.ParseAPIData(Tools.getHttpData(Apis.APIs[i]), i);
         }
-        return Apis.needData;
+        Tools.insert(needData.get("date").getAsString(),needData.toString());
     }
 }
